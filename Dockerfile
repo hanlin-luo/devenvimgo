@@ -1,8 +1,10 @@
-FROM golang
+FROM golang:latest
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-	apt-get update && apt-get install -y \
+COPY ./sources.list /etc/apt/
+RUN apt-get update && apt-get install -y \
 		neovim \
+		python3 \
+		python3-pip \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& pip3 install --upgrade neovim \
 	&& mkdir -p /root/.config/nvim \
